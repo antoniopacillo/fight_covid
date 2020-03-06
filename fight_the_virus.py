@@ -4,7 +4,7 @@ from random import randint as rand
 pygame.init()
 #creazione schermo
 screen = pygame.display.set_mode((731, 487))
-pygame.display.set_caption("Save Di Leo From COVID19")
+pygame.display.set_caption("FIGHT COVID19")
 icon = pygame.image.load("icon.png")
 pygame.display.set_icon(icon)
 bg = pygame.image.load("bg1.jpg")
