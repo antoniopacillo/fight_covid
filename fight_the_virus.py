@@ -13,10 +13,6 @@ game_over_screen = myfont.render('GAME OVER', False, (255, 0, 0))
 #inizializzazione regole
 score = 0
 difficulty = 1
-
-
-
-
 #caricamento immagini oggetti
 virus_img = pygame.image.load("virus.png")
 syringe_img = pygame.image.load("syringe.png")
@@ -43,7 +39,6 @@ class syringe(object):
         self.vel = vel
         self.x = initial_x
         self.y = initial_y
-
     def movement(self, p_x, p_y):
         if not self.fire:
             self.x = p_x
@@ -72,16 +67,11 @@ class virus(object):
     def movement(self, y):
         for i in range(len(self.army_y)):
                 self.army_y[i] += self.vel
-
-
 def difficulty_set(s):
     if score < 10:
         return 1
     else:
         return int((score / 10) + 1)
-
-
-
 #creazione oggetti
 player_1 = player_character(365, 410, 4)
 projectile = syringe(6, 365, 410)
@@ -98,7 +88,6 @@ def draw():
         covid_19.draw()
     else:
         screen.blit(game_over_screen, (340, 205))
-
 #L00P
 run = True
 game_over = False
@@ -122,8 +111,6 @@ while run:
                 player_1.right = False
             if event.key == pygame.K_LEFT:
                 player_1.left = False
-
-
     #movimenti
     player_1.movement()
     projectile.movement(player_1.x, player_1.y)
@@ -139,6 +126,4 @@ while run:
         if covid_19.army_y[i] >= player_1.y:
             game_over = True
     difficulty = difficulty_set(score)
-
-
     pygame.display.update()
