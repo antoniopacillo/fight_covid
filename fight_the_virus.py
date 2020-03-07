@@ -15,7 +15,7 @@ score = 0
 difficulty = 1
 #caricamento immagini oggetti
 virus_img = pygame.image.load("virus.png")
-syringe_img = pygame.image.load("syringe.png")
+syringe_img = pygame.image.load("syringe.png") #15x41
 player_img = pygame.image.load("player.png")
 #classe giocatore
 class player_character(object):
@@ -41,7 +41,7 @@ class syringe(object):
         self.y = initial_y
     def movement(self, p_x, p_y):
         if not self.fire:
-            self.x = p_x
+            self.x = p_x + 22
             self.y = p_y
         else:
             self.y -= self.vel
@@ -63,7 +63,7 @@ class virus(object):
             self.army_y.append(y)
     def draw(self):
         for i in range(len(self.army_y)):
-            screen.blit(virus_img, (self.army_x[i], self.army_y[i]))
+            screen.blit(virus_img, (int(self.army_x[i]), int(self.army_y[i])))
     def movement(self, y):
         for i in range(len(self.army_y)):
                 self.army_y[i] += self.vel
@@ -73,8 +73,8 @@ def difficulty_set(s):
     else:
         return int((score / 10) + 1)
 #creazione oggetti
-player_1 = player_character(365, 410, 4)
-projectile = syringe(6, 365, 410)
+player_1 = player_character(365, 410, 3)
+projectile = syringe(6, 400, 410)
 covid_19 = virus(0.25)
 covid_19.recruit(difficulty)    #il numero di virus aumenta all'aumentare della difficolta che aumenta all'aumentare dei punti (score)
 #funzione di "animazione"
@@ -116,8 +116,9 @@ while run:
     projectile.movement(player_1.x, player_1.y)
     covid_19.movement(player_1.y)
     draw()
+    #collisioni siringhe virus
     for i in range(len(covid_19.army_y)):
-        if (projectile.y - 16 < covid_19.army_y[i] + 16 and projectile.y -16 > covid_19.army_y[i] - 16) and (projectile.x > covid_19.army_x[i] - 16 and projectile.x < covid_19.army_x[i] + 16):
+        if (projectile.y - 16 < covid_19.army_y[i] + 16 and projectile.y -16 > covid_19.army_y[i] - 16) and (projectile.x > covid_19.army_x[i] - 20 and projectile.x < covid_19.army_x[i] + 20):
             score += 1
             projectile.fire = False
             covid_19.army_x.remove(covid_19.army_x[i])
